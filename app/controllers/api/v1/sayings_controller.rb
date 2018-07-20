@@ -1,4 +1,4 @@
-class SayingsController < ApplicationController
+class Api::V1::SayingsController < ApplicationController
 
     def index
 

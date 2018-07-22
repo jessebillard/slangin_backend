@@ -32,7 +32,14 @@ class Api::V1::SayingsController < ApplicationController
     end
 
     def update
-
+        # byebug
+        @saying = Saying.find(params[:saying][:id])
+        @saying.votes += 1
+        if @saying.save
+            render json: @saying
+        else
+            render json: error_message
+        end
     end
 
     def destroy

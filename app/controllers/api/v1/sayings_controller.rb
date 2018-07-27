@@ -16,31 +16,39 @@ class Api::V1::SayingsController < ApplicationController
     end
 
     def create
-        byebug
-        # @saying = Saying.new(sayings_params)
         # byebug
-        # @region = Region.find_by(name: params[:region])
-        # @saying.region = @region
+        @saying = Saying.new(sayings_params)
+        # byebug
+        @region = Region.find_by(name: params[:region])
+        @saying.region = @region
 
         # just for now, make all sayings belong to the first and only user
         # when authorization is added and user page is setup on frontend, then change this aspect...
         # to find current user and make them the owner of this saying.
-        # @user = User.all.first
-        # @saying.user = @user
+        @user = User.all.first
+        @saying.user = @user
 
         # take into account the votes...a new slang must have zero votes and must have votes value to save to db.
-        # @saying.votes = 0
+        @saying.votes = 0
 
-        # how to format the tags into an array of strings without hashtags
-        # string[0..-1].split(",#")
+        # how to format the tags into an array of strings
+        tags = params[:tags].split(",")
+        tags.each do |tag|
+            # do a find or create by for this tag!!!
+            @new_tag = Tag.create(name: tag)
+            @join_tag = SayingTag.new
+            @join_tag.saying = @saying
+            @join_tag.tag = @new_tag
+            @join_tag.save
+        end
 
-        # @saying.recording.attach(params[:recording])
+        @saying.recording.attach(params[:recording])
         # byebug
-        # if @saying.save
-        #     render json: @saying
-        # else
-        #     render json: error_message
-        # end
+        if @saying.save
+            render json: @saying
+        else
+            render json: error_message
+        end
     end
 
     def update

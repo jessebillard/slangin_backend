@@ -12,7 +12,7 @@ class Api::V1::SayingsController < ApplicationController
         @saying = Saying.find(params[:id])
 
         send_data @saying.recording.download, content_type: @saying.recording.content_type
-
+        
     end
 
     def create

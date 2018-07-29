@@ -35,7 +35,7 @@ class Api::V1::SayingsController < ApplicationController
         tags = params[:tags].split(",")
         tags.each do |tag|
             # do a find or create by for this tag!!!
-            @new_tag = Tag.create(name: tag)
+            @new_tag = Tag.find_or_create_by(name: tag)
             @join_tag = SayingTag.new
             @join_tag.saying = @saying
             @join_tag.tag = @new_tag

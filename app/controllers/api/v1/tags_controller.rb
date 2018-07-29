@@ -13,8 +13,16 @@ class Api::V1::TagsController < ApplicationController
     end
 
     def show
+        # byebug
         # will use specific tag from params to find all sayings using this tag
         # maybe use serializer to get all sayings when searching for tag...
+        @tag = Tag.find(params[:id])
+        @sayings = @tag.sayings
+        if @sayings 
+           render json: @sayings
+        else
+            render json: error_message
+        end
     end
 
     private

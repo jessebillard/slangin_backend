@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :users, only: [:show, :create, :update, :destroy]
       resources :regions, only: [:index, :show]
       get '/tags/:saying', to: 'tags#index'
-      get '/tags/:id', to: 'tags#show'
+      get '/tags/:id/sayings', to: 'tags#show'
       # resources :tags, only: [:show]
     end
   end

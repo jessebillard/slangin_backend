@@ -1,9 +1,10 @@
 class Api::V1::TagsController < ApplicationController
     def index
         # this will use the saying from the params to find all tags belonging to that sayin
-
+        # byebug
         # @tags = Tag.find(:all, :conditions => {:sayings => params[:saying]})
-        @saying = Saying.find_by(title: params[:saying])
+        # @saying = Saying.find_by(title: params[:saying])
+        @saying = Saying.find(params[:sayingId])
         # byebug
         if @saying
             render json: @saying.tags
